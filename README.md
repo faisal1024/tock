@@ -84,6 +84,10 @@ Gear menu (⚙) in the popover:
 
 - **Alarm Sound**: any built-in macOS sound (Glass, Hero, Ping, Submarine, …) or None. Picking one plays a preview.
 - **Ring For**: Once, 5, 10 (default), 20, 30 seconds, or 1 minute. The sound repeats for that long.
+
+> **Tip:** for a hard-to-miss alarm, try **Sosumi**, **Hero**, **Submarine**, or **Funk**, and set
+> **Ring For** to 20–30 seconds.
+
 - **Launch at Login**
 - **Quit**
 
