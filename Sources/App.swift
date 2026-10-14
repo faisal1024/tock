@@ -105,6 +105,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
             return
         }
         guard let button = statusItem.button else { return }
+        Alarm.shared.stop() // opening Tock silences a ringing alarm
         // Fresh view each time so the text field grabs focus on open.
         let root = PopoverView(
             openReport: { [weak self] in self?.showReport() },
@@ -151,6 +152,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
         let action = response.actionIdentifier
         DispatchQueue.main.async {
             MainActor.assumeIsolated {
+                Alarm.shared.stop()
                 if action == TimerEngine.startBreakAction {
                     self.engine.startBreak()
                 } else if action == UNNotificationDefaultActionIdentifier, !self.popover.isShown {

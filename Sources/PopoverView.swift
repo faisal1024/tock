@@ -9,6 +9,8 @@ struct PopoverView: View {
 
     @FocusState private var fieldFocused: Bool
     @State private var launchAtLogin = SMAppService.mainApp.status == .enabled
+    @AppStorage(Alarm.soundKey) private var alarmSound = Alarm.defaultSound
+    @AppStorage(Alarm.ringSecondsKey) private var ringSeconds = Alarm.defaultRingSeconds
 
     var body: some View {
         VStack(spacing: 14) {
@@ -199,6 +201,16 @@ struct PopoverView: View {
                     .onChange(of: launchAtLogin) { _, on in
                         try? on ? SMAppService.mainApp.register() : SMAppService.mainApp.unregister()
                     }
+                Picker("Alarm Sound", selection: $alarmSound) {
+                    ForEach(Alarm.sounds, id: \.self) { Text($0).tag($0) }
+                    Divider()
+                    Text(Alarm.none).tag(Alarm.none)
+                }
+                .onChange(of: alarmSound) { _, name in Alarm.shared.preview(name) }
+                Picker("Ring For", selection: $ringSeconds) {
+                    ForEach(Alarm.ringOptions, id: \.self) { Text(Alarm.ringLabel($0)).tag($0) }
+                }
+                Divider()
                 Text("Open Tock from anywhere: ⌃⌥T")
                 Divider()
                 Button("Quit Tock") { NSApp.terminate(nil) }.keyboardShortcut("q")

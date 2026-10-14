@@ -70,6 +70,7 @@ final class TimerEngine: ObservableObject {
         note = parsed.note
         isBreak = false
         breakOffered = false
+        Alarm.shared.stop()
         begin(seconds: TimeInterval(minutes * 60))
     }
 
@@ -80,6 +81,7 @@ final class TimerEngine: ObservableObject {
         note = ""
         isBreak = true
         breakOffered = false
+        Alarm.shared.stop()
         begin(seconds: TimeInterval(Self.breakMinutes * 60))
     }
 
@@ -195,7 +197,7 @@ final class TimerEngine: ObservableObject {
     }
 
     private func notify(_ session: Session) {
-        NSSound(named: "Glass")?.play()
+        Alarm.shared.ring()
         let content = UNMutableNotificationContent()
         content.title = "Time's up — \(Fmt.duration(TimeInterval(session.focusedSeconds))) done"
         let detail = [session.tagLabel, session.note].filter { !$0.isEmpty }.joined(separator: " · ")
@@ -206,7 +208,7 @@ final class TimerEngine: ObservableObject {
     }
 
     private func notifyBreakOver() {
-        NSSound(named: "Glass")?.play()
+        Alarm.shared.ring()
         let content = UNMutableNotificationContent()
         content.title = "Break's over"
         content.body = "Ready for the next session?"

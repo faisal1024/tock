@@ -51,7 +51,8 @@ the session by accident; time floors at 1 minute.
 - **Finish**: stop now and log the time so far (only if at least 1 minute was focused)
 - **🗑**: discard without logging
 
-When the time is up you hear a sound, get a notification, and the session is logged.
+When the time is up the alarm rings (10 seconds by default), you get a notification, and the session
+is logged. Click the menu-bar icon, press ⌃⌥T, or click the notification to stop the ringing early.
 
 ## Optional 5-minute break
 
@@ -79,7 +80,12 @@ Click **Report** at the bottom of the popover (or press ⌘R there).
 
 ## Settings
 
-Gear menu in the popover: **Launch at Login**, **Quit**.
+Gear menu (⚙) in the popover:
+
+- **Alarm Sound**: any built-in macOS sound (Glass, Hero, Ping, Submarine, …) or None. Picking one plays a preview.
+- **Ring For**: Once, 5, 10 (default), 20, 30 seconds, or 1 minute. The sound repeats for that long.
+- **Launch at Login**
+- **Quit**
 
 ## Your data
 
@@ -96,6 +102,7 @@ Nothing is sent anywhere.
 | `Sources/ReportView.swift` | The report window, CSV export, copy summary |
 | `Sources/Model.swift` | Session data, `#tag`/duration parser, time formatting |
 | `Sources/Store.swift` | Saves and loads sessions |
+| `Sources/Alarm.swift` | Alarm sound choice and repeat-for-N-seconds ringing |
 | `build.sh` | Builds and optionally installs the app |
 
 ## License
