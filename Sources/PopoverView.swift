@@ -58,10 +58,21 @@ struct PopoverView: View {
                 }
             }
 
-            Button(action: startAndClose) {
-                Label("Start", systemImage: "play.fill").frame(maxWidth: .infinity)
+            HStack(spacing: 8) {
+                Button(action: startAndClose) {
+                    Label("Start", systemImage: "play.fill").frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+
+                Button {
+                    engine.startBreak()
+                    close()
+                } label: {
+                    Label("\(TimerEngine.breakMinutes)m Break", systemImage: "cup.and.saucer.fill")
+                }
+                .tint(.green)
+                .help("Start a \(TimerEngine.breakMinutes)-minute break (not logged as focus time)")
             }
-            .buttonStyle(.borderedProminent)
             .controlSize(.large)
 
             Text("↑↓ ±1 min   ⇧↑↓ ±5 min   ⏎ start")

@@ -122,8 +122,10 @@ final class TimerEngine: ObservableObject {
     /// Stop early. Saves the session if at least a minute of focus was logged.
     func finishEarly() {
         guard phase != .idle else { return }
-        if !isBreak, focusedSeconds >= 60 { record(completed: false) }
+        let logged = !isBreak && focusedSeconds >= 60
+        if logged { record(completed: false) }
         reset()
+        breakOffered = logged
     }
 
     func discard() { reset() }
